@@ -178,4 +178,22 @@ footer a {
     text-align: left;
     font-size: 1.2em;
     /* text-decoration: none; */
-  }
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #2c3e50;
+}
+
+h2 {
+  margin-bottom: 10px;
+  color: #34495e;
+  font-size: 1.2em;
+}
+
+h3 {
+  margin-bottom: 10px;
+  color: #34495e;
+  font-size: 1.1em;
+}
