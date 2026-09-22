@@ -49,6 +49,17 @@ html {
     width: fit-content;
     font-weight: bold;
 }
+.BusRouteAndDest_sample {
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    align-items: center;
+    width: fit-content;
+    font-weight: bold; 
+}
+.BusRouteAndDest_sample p  {
+    margin: 0; 
+}
 .BusNum{
     font-size: 0.8em;
     padding-right: 0.25rem;
