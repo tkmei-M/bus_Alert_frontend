@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>路線バスモニター - M-san Lab</title>
+
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <a class="back-to-home" href="/">M-san Lab</a>
+  </head>
+  <body>
+    <h1>路線バスモニター</h1>
+    <h2>このサイトについて</h2>
+    <p>
+      このサイトは、<a href="https://www.bus-kyo.or.jp/gtfs-open-data"
+        >広島県バス協会によるGTFSオープンデータ（クリエイティブ・コモンズ
+        CC0）</a
+      >に基づき、近隣バス停に到着するバスの時刻を提供します。
+    </p>
+    <h2>情報の正確性について</h2>
+    <p>
+      サービスに使用されるデータは提供会社の情報に依存するため、バスの到着時刻や遅延は実際の運行と異なる場合があります。あくまで目安としてご利用ください。
+    </p>
+    <p>
+      また、このサービスの利用、または利用不能によって生じた損害に関し、開発者は一切の責任を負いません。
+    </p>
+    <h2>動作環境について</h2>
+    <p>
+      サービスはスマートフォンおよびPCにて、主として<b>Google Chrome</b
+      >での利用を想定しています。他ブラウザ（Microsoft Edge、Fire
+      Foxなど）でも動作の検証は行っていますが、全ての端末での動作は保証しません。利用にあたっては自己責任でご利用ください。
+    </p>
+    <h2>サイトのソースコードについて</h2>
+    <p>
+      このサイトのソースコードについて、フロントエンド（<a
+        href="https://github.com/tkmei-M/bus_Alert_frontend"
+        >こちらのリポジトリ</a
+      >）に掲載しているものについてはMITライセンスに基づき提供されます。開発者はこのサイトの動作または動作不良について、一切の責任を負いません
+    </p>
+    <h2>プライバシーポリシー（個人情報の取り扱いについて）</h2>
+    <p>
+      当サービスでは、利用者のアカウント管理および認証（招待制によるログイン）のために、メールアドレスおよびパスワードを収集・利用します。
+    </p>
+
+    <h3>1. 個人情報の利用目的</h3>
+    <p>
+      収集したメールアドレスは、当サービスへのログイン認証、アカウント管理、およびシステムに関する重要なお知らせの通知にのみ利用し、それ以外の目的には一切利用しません。
+    </p>
+
+    <h3>2. 個人情報の管理・第三者提供</h3>
+    <p>
+      ユーザーの認証データ（メールアドレスおよび暗号化されたパスワード）は、クラウドサービス（Supabase）の安全な環境下で管理されます。開発者は、法令に基づく場合を除き、利用者の同意なく個人情報を第三者に提供することはありません。
+    </p>
+
+    <h3>3. 個人情報の削除（退会）について</h3>
+    <p>
+      当サービスのアカウント削除および個人情報の消去をご希望の場合は、開発者までご連絡ください。速やかにデータベースから削除対応を行います。
+    </p>
+  </body>
+  <footer>
+    <p>&copy; 2026 M-san Lab. All rights reserved.</p>
+    <p>
+      <a href="https://x.com/tkmei_M">Twitter</a>
+    </p>
+    <p>
+      <a href="https://note.com/tkmei_m">note</a>
+    </p>
+    <p><a href="/">TOPに戻る</a></p>
+  </footer>
+</html>
