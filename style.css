@@ -1,0 +1,181 @@
+html {
+    -webkit-text-size-adjust: 100%;
+}
+
+.NextBusesListSection {
+    text-align: center;
+    height: 800px
+}
+.NextBusesListsGroup {
+    background-color: #555;
+    display: flex;
+    border-radius: 15px;
+    padding: 4px
+}
+.NextBusList {
+    color: #f5f5f5;
+    /* display: flex; */
+    flex-direction: column;
+    align-items: center;
+    width: 80%
+}
+.BusesCell_univ {
+    display: flex;
+}
+.BusesCell_numa {
+    display: flex;
+}
+.NextBusesListCell {
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    color: #000;
+    margin: 2%;
+    height: 95px;
+    border-radius: 10px;
+    padding: 4px;
+    font-size: 13px
+}
+.NextBusesListCell p {
+    align-items: left;
+    display: inline-block;
+    margin: 0%;
+}
+.BusRouteAndDest{
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    align-items: center;
+    width: fit-content;
+    font-weight: bold;
+}
+.BusNum{
+    font-size: 0.8em;
+    padding-right: 0.25rem;
+}
+.BusDelayBlock {
+    display: flex;
+    flex-direction: row;
+    text-align: left;
+    justify-content: space-between;
+    align-items: center;
+}
+.BusArrivalBlock {
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+    justify-content: space-between;
+}
+.ArrivalTime {
+    margin-top: 40px;
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+.ArrivalTimeDelayed {
+    margin-top: 40px;
+    font-size: 1rem;
+    font-weight: bold;
+    text-decoration: line-through;
+}
+.DelayHighlightDelayed {
+    color: #ff2222;
+    margin-top: 40px;
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+.DelayHighlight {
+    color: #00000000;
+    margin-top: 40px;
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+.DelayMinutes {
+    color: #ff2222;
+}
+.NowLocale {
+    font-size: 11px;
+    text-align: left;
+}
+.ViaStop {
+    font-size: 12px;
+}
+.ViaAndRemainingMinutesBlock {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.viaYokogawa_dest {
+    background-color: #087d00;
+    color: #f1f1f1;
+    border: 3px solid #087d00;
+}
+.viaYokogawa_dest .BusDest {
+    background-color: #ffffff;
+    color: #087d00;
+    padding-left: 0.2rem;
+    padding-right: 0.2rem;
+}
+.viaNakahiro_dest {
+    background-color: #6c007d;
+    color: #f1f1f1;
+    border: 3px solid #6c007d;
+}
+.viaNakahiro {
+    text-decoration: underline; /* 下線を引く */
+    text-decoration-color:  #6c007d;  /* 線の色を赤にする */
+    text-decoration-thickness: 2px; /* 線の太さ */
+}
+.viaNakahiro_dest .BusDest {
+    background-color: #ffffff;
+    color: #6c007d;
+    padding-left: 0.2rem;
+    padding-right: 0.2rem;
+}
+.MinatoLine_dest {
+    background-color: #0065be;
+    color: #f1f1f1;
+    border: 3px solid #0065be;
+}
+.MinatoLine_dest .BusDest {
+    background-color: #ffffff;
+    color: #0065be;
+    padding-left: 0.2rem;
+    padding-right: 0.2rem;
+}
+.Ishiuchi_dest {
+    background-color: #be1900;
+    color: #f1f1f1;
+    border: 3px solid #be1900;
+}
+.Ishiuchi_dest .BusDest {
+    background-color: #ffffff;
+    color: #be1900;
+    padding-left: 0.2rem;
+    padding-right: 0.2rem;
+}
+main {
+    background-color: #f1f1f1;
+    margin: 75px auto 50px;
+    max-width: 500px;
+    height: 2600px;
+    font-family:"Noto Sans JP", sans-serif;
+}
+
+footer {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.9em;
+    color: #777;
+  }
+footer a {
+    color: #777;
+    /* text-decoration: none; */
+  }
+
+  .back-to-home {
+    color: #777;
+    text-align: left;
+    font-size: 1.2em;
+    /* text-decoration: none; */
+  }
