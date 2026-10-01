@@ -40,6 +40,15 @@ html {
     align-items: left;
     display: inline-block;
     margin: 0%;
+    /* テキスト選択させないように */
+  -webkit-user-select: none;   /* Safari / iOS */
+  user-select: none;           /* 標準 */
+  
+  /* スマホ特有のタップ時の青いハイライトを消す */
+  -webkit-tap-highlight-color: transparent; 
+  
+  /* マウスカーソルを指マークにしてクリック可能であることを示す */
+  cursor: pointer; 
 }
 .BusRouteAndDest{
     display: flex;
@@ -207,4 +216,56 @@ h3 {
   margin-bottom: 10px;
   color: #34495e;
   font-size: 1.1em;
+}
+
+/* 背景のオーバーレイ */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  z-index: 999;
+}
+
+.overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ボトムシート本体 */
+.bottom-sheet {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  max-height: 80vh;
+  background: #ffffff;
+  border-radius: 16px 16px 0 0;
+  box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+  z-index: 1000;
+  box-sizing: border-box;
+}
+
+.bottom-sheet.active {
+  transform: translateY(0);
+}
+
+/* ドラッグ用のバー（見た目） */
+.sheet-handle {
+  width: 40px;
+  height: 4px;
+  background: #ccc;
+  border-radius: 2px;
+  margin: 12px auto;
+}
+
+.sheet-content {
+  padding: 0 20px 24px;
 }
