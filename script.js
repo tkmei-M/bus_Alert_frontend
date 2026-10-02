@@ -235,7 +235,7 @@ async function fetchAndDisplayData() {
 }
 
 // バスの詳細情報を開く関数
-function openSheet(
+async function openSheet(
   trip_id,
   source_stop,
   destination_stop,
@@ -254,6 +254,14 @@ function openSheet(
   document.getElementById("sheet-via-stop").textContent = via_stop;
   document.getElementById("bottom-sheet").classList.add("active");
   document.getElementById("overlay").classList.add("active");
+
+  const { data: data_update, error: error } = await client
+    .from("trip_stops")
+    .select("*")
+    .eq("trip_id", String(trip_id))
+    .order("stop_sequence", { ascending: true });
+
+  console.log(data_update);
 }
 
 // バスの詳細情報を閉じる関数
