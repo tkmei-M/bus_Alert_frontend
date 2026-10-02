@@ -268,4 +268,11 @@ h3 {
 
 .sheet-content {
   padding: 0 20px 24px;
+  height: 70vh;
+  overflow-y: auto;       /* 縦スクロールを有効化 */
+  -webkit-overflow-scrolling: touch; /* iOSの滑らかなスクロール */
+  overscroll-behavior: contain; /* 親要素へのスクロール伝播を防ぐ */
+}
+.close-btn {
+    margin-left: 3%;
 }

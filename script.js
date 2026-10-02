@@ -130,7 +130,7 @@ async function fetchAndDisplayData() {
   data-destination-stop="${escapeAttribute(destination_stop)}"
   data-route-short-name="${escapeAttribute(route_short_name)}"
   data-route-long-name="${escapeAttribute(route_long_name)}"
-  data-via-stop="${escapeAttribute(via_stop_short)}">
+  data-via-stop="${escapeAttribute(via_stop)}">
 <div class="BusArrivalBlock">
 <div class="BusRouteAndDest ${via_class_name}_dest">
 <p class="BusNum">${route_short_name}</p>
@@ -145,7 +145,7 @@ async function fetchAndDisplayData() {
 </div>
 </div>
 <div class="ViaAndRemainingMinutesBlock">
-<p class = "ViaStop ${via_class_name}">${via_stop}経由</p>
+<p class = "ViaStop ${via_class_name}">${via_stop_short}経由</p>
 <p class="RemainingMinutes">${remaining_minutes}</p>
 </div>
 <p class="NowLocale">${now_locale}</p>
@@ -243,7 +243,7 @@ async function openSheet(
   route_long_name,
   via_stop,
 ) {
-  document.getElementById("sheet-trip-id").textContent = trip_id;
+  document.body.style.overflow = 'hidden';
   document.getElementById("sheet-source-stop").textContent = source_stop;
   document.getElementById("sheet-destination-stop").textContent =
     destination_stop;
@@ -262,12 +262,24 @@ async function openSheet(
     .order("stop_sequence", { ascending: true });
 
   console.log(data_update);
+
+  let stop_name, stop_time;
+  let insert_table ="<table>"
+  for (bus_data of data_update) {
+    // stop_nameとtimeを対応付けた表を作成して挿入
+    stop_name = bus_data.stop_name;
+    stop_time = bus_data.time;
+    insert_table += `<tr><td>${stop_name}</td><td>${stop_time}</td></tr>`;
+  }
+  insert_table += "</table>"
+  document.getElementById("sheet-table").innerHTML = insert_table;
 }
 
 // バスの詳細情報を閉じる関数
 function closeSheet() {
   document.getElementById("bottom-sheet").classList.remove("active");
   document.getElementById("overlay").classList.remove("active");
+  document.body.style.overflow = '';
 }
 
 // ページ読み込み時にデータを取得
