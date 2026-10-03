@@ -285,7 +285,10 @@ async function openSheet(
   }
 
   let stop_name, stop_time;
-  if (source_stop == timetable_data[0].stop_name) {
+  if (
+    source_stop.replaceAll(" ", "") ==
+    timetable_data[0].stop_name.replaceAll(" ", "")
+  ) {
     var insert_table = `<table>`;
   } else {
     var insert_table = `<table><tr><td>${source_stop}（始発）</td><td></td></tr><tr><td class="center">⋮</td></tr>`;
@@ -294,7 +297,7 @@ async function openSheet(
     // stop_nameとtimeを対応付けた表を作成して挿入
     stop_name = bus_data.stop_name;
     stop_time = bus_data.time;
-    if (source_stop != bus_data.stop_name) {
+    if (source_stop.replaceAll(" ", "") != stop_name.replaceAll(" ", "")) {
       insert_table += `<tr><td>${stop_name}</td><td>${stop_time}</td></tr>`;
     } else {
       insert_table += `<tr><td>${stop_name}（始発）</td><td>${stop_time}</td></tr>`;
