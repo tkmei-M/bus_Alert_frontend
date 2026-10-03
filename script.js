@@ -130,7 +130,8 @@ async function fetchAndDisplayData() {
   data-destination-stop="${escapeAttribute(destination_stop)}"
   data-route-short-name="${escapeAttribute(route_short_name)}"
   data-route-long-name="${escapeAttribute(route_long_name)}"
-  data-via-stop="${escapeAttribute(via_stop)}">
+  data-via-stop="${escapeAttribute(via_stop)}"
+  data-color-class="${escapeAttribute(via_class_name)}">
 <div class="BusArrivalBlock">
 <div class="BusRouteAndDest ${via_class_name}_dest">
 <p class="BusNum">${route_short_name}</p>
@@ -209,7 +210,8 @@ async function fetchAndDisplayData() {
   data-destination-stop="${escapeAttribute(destination_stop)}"
   data-route-short-name="${escapeAttribute(route_short_name)}"
   data-route-long-name="${escapeAttribute(route_long_name)}"
-  data-via-stop="${escapeAttribute(via_stop)}">
+  data-via-stop="${escapeAttribute(via_stop)}"
+  data-color-class="${escapeAttribute(via_class_name)}">
 <div class="BusArrivalBlock">
 <div class="BusRouteAndDest ${via_class_name}_dest">
 <p class="BusNum">${route_short_name}</p>
@@ -242,18 +244,21 @@ async function openSheet(
   route_short_name,
   route_long_name,
   via_stop,
+  via_class_name,
 ) {
   document.body.style.overflow = 'hidden';
-  document.getElementById("sheet-source-stop").textContent = source_stop;
+  // document.getElementById("sheet-source-stop").textContent = source_stop;
   document.getElementById("sheet-destination-stop").textContent =
     destination_stop;
   document.getElementById("sheet-route-short-name").textContent =
     route_short_name;
   document.getElementById("sheet-route-long-name").textContent =
     route_long_name;
-  document.getElementById("sheet-via-stop").textContent = via_stop;
+  // document.getElementById("sheet-via-stop").textContent = (via_stop + "経由");
   document.getElementById("bottom-sheet").classList.add("active");
   document.getElementById("overlay").classList.add("active");
+  document.getElementById("BusRouteAndDest").classList.add(`${via_class_name}_dest`);
+  document.getElementById("sheet-destination-stop").classList.add("BusDest");
 
   const { data: data_update, error: error } = await client
     .from("trip_stops")
@@ -264,7 +269,7 @@ async function openSheet(
   console.log(data_update);
 
   let stop_name, stop_time;
-  let insert_table ="<table>"
+  let insert_table =`<table><tr><td>${source_stop}（始発）</td><td></td></tr><tr><td class="center">⋮</td></tr>`
   for (bus_data of data_update) {
     // stop_nameとtimeを対応付けた表を作成して挿入
     stop_name = bus_data.stop_name;
@@ -279,6 +284,7 @@ async function openSheet(
 function closeSheet() {
   document.getElementById("bottom-sheet").classList.remove("active");
   document.getElementById("overlay").classList.remove("active");
+  document.getElementById("BusRouteAndDest").classList.remove("viaYokogawa_dest", "viaNakahiro_dest", "MinatoLine_dest", "Ishiuchi_dest")
   document.body.style.overflow = '';
 }
 
@@ -297,6 +303,7 @@ document.addEventListener("DOMContentLoaded", () => {
           busCell.dataset.routeShortName,
           busCell.dataset.routeLongName,
           busCell.dataset.viaStop,
+          busCell.dataset.colorClass
         );
       }
     });
