@@ -38,6 +38,25 @@
         <div id="data"></div>
       </div>
     </main>
+    <!-- ボトムシートの要素 -->
+    <div id="overlay" class="overlay"></div>
+    <div id="bottom-sheet" class="bottom-sheet">
+      <div class="sheet-handle"></div>
+      <button id="close-btn" class="close-btn">閉じる</button>
+      <div class="sheet-content" id="sheet-content">
+        <div class="bus-info">
+          <p id="sheet-route-long-name"></p>
+          <!-- <p id="sheet-via-stop"></p> -->
+          <div class="BusRouteAndDest" id="BusRouteAndDest">
+            <p class="sheet-route-short-name" id="sheet-route-short-name"></p>
+            <p class="sheet-destination-stop" id="sheet-destination-stop"></p>
+          </div>
+          <!-- <p id="sheet-source-stop"></p> -->
+        </div>
+        <hr />
+        <div id="sheet-table" class="sheet-table"></div>
+      </div>
+    </div>
   </body>
   <footer>
     <p>&copy; 2026 M-san Lab. All rights reserved.</p>

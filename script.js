@@ -5,6 +5,14 @@ const nakahiro_regex = /.*中広町.*/;
 const minato_regex = /西風みなとライン/;
 const ishiuchi_regex = /.*五日市駅北口.*/;
 
+function escapeAttribute(value) {
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/"/g, "&quot;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
 // データ取得関数
 async function fetchAndDisplayData() {
   const session = await requireAuth();
@@ -96,7 +104,7 @@ async function fetchAndDisplayData() {
       delay_class_name = "";
     }
 
-    via_stop = via_stop
+    via_stop_short = via_stop
       .replace(/ジ.*アウトレット.*広島/, "ｱｳﾄﾚｯﾄ")
       .replace(/アルパーク/, "ｱﾙﾊﾟ")
       .replace(/市立大学前/, "市大前")
@@ -106,9 +114,9 @@ async function fetchAndDisplayData() {
     if (before_regex.test(remaining_minutes)) {
       continue;
     }
-    if (yokogawa_regex.test(via_stop)) {
+    if (yokogawa_regex.test(via_stop_short)) {
       via_class_name = "viaYokogawa";
-    } else if (nakahiro_regex.test(via_stop)) {
+    } else if (nakahiro_regex.test(via_stop_short)) {
       via_class_name = "viaNakahiro";
     } else if (minato_regex.test(route_long_name)) {
       via_class_name = "MinatoLine";
@@ -116,7 +124,14 @@ async function fetchAndDisplayData() {
       via_class_name = "Ishiuchi";
     }
 
-    addingCell_numa += `<div class="NextBusesListCell">
+    addingCell_numa += `<div class="NextBusesListCell"
+  data-trip-id="${escapeAttribute(trip_id)}"
+  data-source-stop="${escapeAttribute(source_stop)}"
+  data-destination-stop="${escapeAttribute(destination_stop)}"
+  data-route-short-name="${escapeAttribute(route_short_name)}"
+  data-route-long-name="${escapeAttribute(route_long_name)}"
+  data-via-stop="${escapeAttribute(via_stop)}"
+  data-color-class="${escapeAttribute(via_class_name)}">
 <div class="BusArrivalBlock">
 <div class="BusRouteAndDest ${via_class_name}_dest">
 <p class="BusNum">${route_short_name}</p>
@@ -131,13 +146,13 @@ async function fetchAndDisplayData() {
 </div>
 </div>
 <div class="ViaAndRemainingMinutesBlock">
-<p class = "ViaStop ${via_class_name}">${via_stop}経由</p>
+<p class = "ViaStop ${via_class_name}">${via_stop_short}経由</p>
 <p class="RemainingMinutes">${remaining_minutes}</p>
 </div>
 <p class="NowLocale">${now_locale}</p>
 </div>`;
   }
-  let = addingCell_ichi = "";
+  let addingCell_ichi = "";
   for (ichi_bus of univ_data) {
     trip_id = ichi_bus.trip_id;
     time = ichi_bus.time;
@@ -169,7 +184,7 @@ async function fetchAndDisplayData() {
       delay_class_name = "";
     }
 
-    via_stop = via_stop
+    via_stop_short = via_stop
       .replace(/ジ.*アウトレット.*広島/, "ｱｳﾄﾚｯﾄ")
       .replace(/アルパーク/, "ｱﾙﾊﾟ")
       .replace(/市立大学前/, "市大前")
@@ -179,9 +194,9 @@ async function fetchAndDisplayData() {
     if (before_regex.test(remaining_minutes)) {
       continue;
     }
-    if (yokogawa_regex.test(via_stop)) {
+    if (yokogawa_regex.test(via_stop_short)) {
       via_class_name = "viaYokogawa";
-    } else if (nakahiro_regex.test(via_stop)) {
+    } else if (nakahiro_regex.test(via_stop_short)) {
       via_class_name = "viaNakahiro";
     } else if (minato_regex.test(route_long_name)) {
       via_class_name = "MinatoLine";
@@ -189,7 +204,14 @@ async function fetchAndDisplayData() {
       via_class_name = "Ishiuchi";
     }
 
-    addingCell_ichi += `<div class="NextBusesListCell">
+    addingCell_ichi += `<div class="NextBusesListCell"
+  data-trip-id="${escapeAttribute(trip_id)}"
+  data-source-stop="${escapeAttribute(source_stop)}"
+  data-destination-stop="${escapeAttribute(destination_stop)}"
+  data-route-short-name="${escapeAttribute(route_short_name)}"
+  data-route-long-name="${escapeAttribute(route_long_name)}"
+  data-via-stop="${escapeAttribute(via_stop)}"
+  data-color-class="${escapeAttribute(via_class_name)}">
 <div class="BusArrivalBlock">
 <div class="BusRouteAndDest ${via_class_name}_dest">
 <p class="BusNum">${route_short_name}</p>
@@ -204,7 +226,7 @@ async function fetchAndDisplayData() {
 </div>
 </div>
 <div class="ViaAndRemainingMinutesBlock">
-<p class = "ViaStop ${via_class_name}">${via_stop}経由</p>
+<p class = "ViaStop ${via_class_name}">${via_stop_short}経由</p>
 <p class="RemainingMinutes">${remaining_minutes}</p>
 </div>
 <p class="NowLocale">${now_locale}</p>
@@ -213,5 +235,111 @@ async function fetchAndDisplayData() {
   document.getElementById("BusesCell_univ").innerHTML = addingCell_ichi;
   document.getElementById("BusesCell_numa").innerHTML = addingCell_numa;
 }
+
+// バスの詳細情報を開く関数
+async function openSheet(
+  trip_id,
+  source_stop,
+  destination_stop,
+  route_short_name,
+  route_long_name,
+  via_stop,
+  via_class_name,
+) {
+  document.body.style.overflow = "hidden";
+  // document.getElementById("sheet-source-stop").textContent = source_stop;
+  document.getElementById("sheet-destination-stop").textContent =
+    destination_stop;
+  document.getElementById("sheet-route-short-name").textContent =
+    route_short_name;
+  document.getElementById("sheet-route-long-name").textContent =
+    route_long_name;
+  // document.getElementById("sheet-via-stop").textContent = (via_stop + "経由");
+  document.getElementById("bottom-sheet").classList.add("active");
+  document.getElementById("overlay").classList.add("active");
+  document
+    .getElementById("BusRouteAndDest")
+    .classList.add(`${via_class_name}_dest`);
+  document.getElementById("sheet-destination-stop").classList.add("BusDest");
+
+  let timetable_data;
+  const { data: data_update, error: error } = await client
+    .from("trip_stops")
+    .select("*")
+    .eq("trip_id", String(trip_id))
+    .order("stop_sequence", { ascending: true });
+
+  console.log(data_update);
+
+  if (data_update.length == 0) {
+    const { data: data_static, error: error } = await client
+      .from("static_trip_stops")
+      .select("*")
+      .eq("trip_id", String(trip_id))
+      .order("stop_sequence", { ascending: true });
+
+    console.log(data_static);
+    timetable_data = data_static;
+  } else {
+    timetable_data = data_update;
+  }
+
+  let stop_name, stop_time;
+  if (source_stop == timetable_data[0].stop_name) {
+    var insert_table = `<table>`;
+  } else {
+    var insert_table = `<table><tr><td>${source_stop}（始発）</td><td></td></tr><tr><td class="center">⋮</td></tr>`;
+  }
+  for (bus_data of timetable_data) {
+    // stop_nameとtimeを対応付けた表を作成して挿入
+    stop_name = bus_data.stop_name;
+    stop_time = bus_data.time;
+    if (source_stop != bus_data.stop_name) {
+      insert_table += `<tr><td>${stop_name}</td><td>${stop_time}</td></tr>`;
+    } else {
+      insert_table += `<tr><td>${stop_name}（始発）</td><td>${stop_time}</td></tr>`;
+    }
+  }
+  insert_table += "</table>";
+  document.getElementById("sheet-table").innerHTML = insert_table;
+}
+
+// バスの詳細情報を閉じる関数
+function closeSheet() {
+  document.getElementById("bottom-sheet").classList.remove("active");
+  document.getElementById("overlay").classList.remove("active");
+  document
+    .getElementById("BusRouteAndDest")
+    .classList.remove(
+      "viaYokogawa_dest",
+      "viaNakahiro_dest",
+      "MinatoLine_dest",
+      "Ishiuchi_dest",
+    );
+  document.body.style.overflow = "";
+}
+
 // ページ読み込み時にデータを取得
-document.addEventListener("DOMContentLoaded", fetchAndDisplayData);
+document.addEventListener("DOMContentLoaded", () => {
+  fetchAndDisplayData();
+
+  document.querySelectorAll(".NextBusList").forEach((busList) => {
+    busList.addEventListener("click", (event) => {
+      const busCell = event.target.closest(".NextBusesListCell");
+      if (busCell) {
+        openSheet(
+          busCell.dataset.tripId,
+          busCell.dataset.sourceStop,
+          busCell.dataset.destinationStop,
+          busCell.dataset.routeShortName,
+          busCell.dataset.routeLongName,
+          busCell.dataset.viaStop,
+          busCell.dataset.colorClass,
+        );
+      }
+    });
+  });
+
+  document.getElementById("close-btn").addEventListener("click", closeSheet);
+  document.getElementById("overlay").addEventListener("click", closeSheet);
+});
