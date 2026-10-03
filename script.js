@@ -246,7 +246,7 @@ async function openSheet(
   via_stop,
   via_class_name,
 ) {
-  document.body.style.overflow = 'hidden';
+  document.body.style.overflow = "hidden";
   // document.getElementById("sheet-source-stop").textContent = source_stop;
   document.getElementById("sheet-destination-stop").textContent =
     destination_stop;
@@ -257,9 +257,12 @@ async function openSheet(
   // document.getElementById("sheet-via-stop").textContent = (via_stop + "経由");
   document.getElementById("bottom-sheet").classList.add("active");
   document.getElementById("overlay").classList.add("active");
-  document.getElementById("BusRouteAndDest").classList.add(`${via_class_name}_dest`);
+  document
+    .getElementById("BusRouteAndDest")
+    .classList.add(`${via_class_name}_dest`);
   document.getElementById("sheet-destination-stop").classList.add("BusDest");
 
+  let timetable_data;
   const { data: data_update, error: error } = await client
     .from("trip_stops")
     .select("*")
@@ -268,15 +271,36 @@ async function openSheet(
 
   console.log(data_update);
 
+  if (data_update.length == 0) {
+    const { data: data_static, error: error } = await client
+      .from("static_trip_stops")
+      .select("*")
+      .eq("trip_id", String(trip_id))
+      .order("stop_sequence", { ascending: true });
+
+    console.log(data_static);
+    timetable_data = data_static;
+  } else {
+    timetable_data = data_update;
+  }
+
   let stop_name, stop_time;
-  let insert_table =`<table><tr><td>${source_stop}（始発）</td><td></td></tr><tr><td class="center">⋮</td></tr>`
-  for (bus_data of data_update) {
+  if (source_stop == timetable_data[0].stop_name) {
+    var insert_table = `<table>`;
+  } else {
+    var insert_table = `<table><tr><td>${source_stop}（始発）</td><td></td></tr><tr><td class="center">⋮</td></tr>`;
+  }
+  for (bus_data of timetable_data) {
     // stop_nameとtimeを対応付けた表を作成して挿入
     stop_name = bus_data.stop_name;
     stop_time = bus_data.time;
-    insert_table += `<tr><td>${stop_name}</td><td>${stop_time}</td></tr>`;
+    if (source_stop != bus_data.stop_name) {
+      insert_table += `<tr><td>${stop_name}</td><td>${stop_time}</td></tr>`;
+    } else {
+      insert_table += `<tr><td>${stop_name}（始発）</td><td>${stop_time}</td></tr>`;
+    }
   }
-  insert_table += "</table>"
+  insert_table += "</table>";
   document.getElementById("sheet-table").innerHTML = insert_table;
 }
 
@@ -284,8 +308,15 @@ async function openSheet(
 function closeSheet() {
   document.getElementById("bottom-sheet").classList.remove("active");
   document.getElementById("overlay").classList.remove("active");
-  document.getElementById("BusRouteAndDest").classList.remove("viaYokogawa_dest", "viaNakahiro_dest", "MinatoLine_dest", "Ishiuchi_dest")
-  document.body.style.overflow = '';
+  document
+    .getElementById("BusRouteAndDest")
+    .classList.remove(
+      "viaYokogawa_dest",
+      "viaNakahiro_dest",
+      "MinatoLine_dest",
+      "Ishiuchi_dest",
+    );
+  document.body.style.overflow = "";
 }
 
 // ページ読み込み時にデータを取得
@@ -303,7 +334,7 @@ document.addEventListener("DOMContentLoaded", () => {
           busCell.dataset.routeShortName,
           busCell.dataset.routeLongName,
           busCell.dataset.viaStop,
-          busCell.dataset.colorClass
+          busCell.dataset.colorClass,
         );
       }
     });
