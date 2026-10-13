@@ -309,6 +309,7 @@ async function openSheet(
 
 // バスの詳細情報を閉じる関数
 function closeSheet() {
+  document.getElementById("sheet-table").innerHTML = "";
   document.getElementById("bottom-sheet").classList.remove("active");
   document.getElementById("overlay").classList.remove("active");
   document
