@@ -113,6 +113,15 @@ async function fetchAndDisplayData() {
       if (stopName == "") {
         continue;
       }
+      if (stopName == "横川駅前") {
+        busItem.classList.add("viaYokogawa");
+      } else if (stopName == "中広町") {
+        busItem.classList.add("viaNakahiro");
+      } else if (stopName == "広島港桟橋") {
+        busItem.classList.add("MinatoLine");
+      } else if (stopName == "五日市駅北口") {
+        busItem.classList.add("viaIshiuchi");
+      }
       if (destText != "" && stopName == destList[destList.length - 1]) {
         destText += "･";
       }

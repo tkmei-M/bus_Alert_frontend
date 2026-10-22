@@ -125,6 +125,10 @@ html {
     justify-content: space-between;
     align-items: center;
 }
+.viaYokogawa {
+    color:  #087d00;  /* 線の色を赤にする */
+    text-decoration-thickness: 2px; /* 線の太さ */
+}
 .viaYokogawa_dest {
     background-color: #087d00;
     color: #f1f1f1;
@@ -142,8 +146,7 @@ html {
     border: 3px solid #6c007d;
 }
 .viaNakahiro {
-    text-decoration: underline; /* 下線を引く */
-    text-decoration-color:  #6c007d;  /* 線の色を赤にする */
+    color:  #6c007d;  /* 線の色を赤にする */
     text-decoration-thickness: 2px; /* 線の太さ */
 }
 .viaNakahiro_dest .BusDest {
@@ -151,6 +154,10 @@ html {
     color: #6c007d;
     padding-left: 0.2rem;
     padding-right: 0.2rem;
+}
+.MinatoLine {
+    color:  #0065be;  /* 線の色を赤にする */
+    text-decoration-thickness: 2px; /* 線の太さ */
 }
 .MinatoLine_dest {
     background-color: #0065be;
@@ -162,6 +169,10 @@ html {
     color: #0065be;
     padding-left: 0.2rem;
     padding-right: 0.2rem;
+}
+.viaIshiuchi {
+    color:  #d35400;  /* 線の色を赤にする */
+    text-decoration-thickness: 2px; /* 線の太さ */
 }
 .Ishiuchi_dest {
     background-color: #d35400;
