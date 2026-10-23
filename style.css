@@ -345,3 +345,14 @@ thead {
     background-color: #222;
     color: #ccc;
 }
+.sample {
+    font-size: 0.75 em;
+}
+
+select {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  min-width: 120px;
+  margin-bottom: 10px;
+}

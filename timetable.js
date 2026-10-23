@@ -39,7 +39,7 @@ const sorting_key = [
 ];
 
 // データ取得関数
-async function fetchAndDisplayData() {
+async function fetchAndDisplayData(table_name) {
   const session = await requireAuth();
 
   if (!session) {
@@ -49,12 +49,11 @@ async function fetchAndDisplayData() {
   }
   // 最新のバス時刻のデータをSupabaseから取得
   const { data: univ_data, error: error_u } = await client
-    .from("numata")
+    .from(table_name)
     .select("*")
     .order("time", { ascending: true });
 
   let last_hour = "0";
-  let last_minute = "0";
   let hour;
   let minute;
   let tr = null;
@@ -67,6 +66,7 @@ async function fetchAndDisplayData() {
   let destText;
   const table = document.getElementById("timetable_data");
 
+  table.innerHTML = ""
   for (ichi_bus of univ_data) {
     trip_id = ichi_bus.trip_id;
     time = ichi_bus.time;
@@ -149,4 +149,20 @@ async function fetchAndDisplayData() {
   // );
 }
 
-fetchAndDisplayData();
+fetchAndDisplayData("ichidai");
+document.addEventListener("DOMContentLoaded", () => {
+  const select = document.getElementById("stopName");
+  console.log(select);
+  select.addEventListener('change', (event) => {
+    // event.target は select 要素自身を指します
+    const text = event.target.options[event.target.selectedIndex].text;
+    
+    if (text == "市立大学前") {
+      fetchAndDisplayData("ichidai")
+    }else {
+      fetchAndDisplayData("numata")
+    }
+  });
+});
+
+
