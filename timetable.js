@@ -148,8 +148,15 @@ async function fetchAndDisplayData(table_name) {
   //   2,
   // );
 }
+const queryString = window.location.search; 
+const urlParams = new URLSearchParams(queryString);
 
-fetchAndDisplayData("ichidai");
+const nameValue = urlParams.get("stopName");
+if (nameValue == "沼田料金所前") {
+  fetchAndDisplayData("numata");
+}else{
+  fetchAndDisplayData("ichidai");
+}
 document.addEventListener("DOMContentLoaded", () => {
   const select = document.getElementById("stopName");
   console.log(select);
