@@ -146,7 +146,7 @@ async function fetchAndDisplayData() {
 </div>
 </div>
 <div class="ViaAndRemainingMinutesBlock">
-<p class = "ViaStop ${via_class_name}">${via_stop_short}経由</p>
+<p class = "ViaStop">${via_stop_short}経由</p>
 <p class="RemainingMinutes">${remaining_minutes}</p>
 </div>
 <p class="NowLocale">${now_locale}</p>
@@ -226,7 +226,7 @@ async function fetchAndDisplayData() {
 </div>
 </div>
 <div class="ViaAndRemainingMinutesBlock">
-<p class = "ViaStop ${via_class_name}">${via_stop_short}経由</p>
+<p class = "ViaStop">${via_stop_short}経由</p>
 <p class="RemainingMinutes">${remaining_minutes}</p>
 </div>
 <p class="NowLocale">${now_locale}</p>
