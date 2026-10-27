@@ -120,7 +120,7 @@ async function fetchAndDisplayData(table_name) {
       } else if (stopName == "広島港桟橋") {
         busItem.classList.add("MinatoLine");
       } else if (stopName == "五日市駅北口") {
-        busItem.classList.add("viaIshiuchi");
+        busItem.classList.add("Ishiuchi");
       }
       if (destText != "" && stopName == destList[destList.length - 1]) {
         destText += "･";
