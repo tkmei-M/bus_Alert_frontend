@@ -112,7 +112,7 @@ async function fetchAndDisplayData() {
       .replace(/免許センター/, "免許ｾﾝﾀｰ");
 
     if (before_regex.test(remaining_minutes)) {
-      continue;
+      remaining_minutes = "まもなく到着";
     }
     if (yokogawa_regex.test(via_stop_short)) {
       via_class_name = "viaYokogawa";
