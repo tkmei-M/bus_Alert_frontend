@@ -1,5 +1,6 @@
 const client = window.supabaseClient;
 const before_regex = /あと-\d+分/;
+const soon_regex = /あと0分/;
 const yokogawa_regex = /横川駅前.*/;
 const nakahiro_regex = /.*中広町.*/;
 const minato_regex = /西風みなとライン/;
@@ -111,7 +112,9 @@ async function fetchAndDisplayData() {
       .replace(/広島修道大学キャンパス/, "修大ｷ")
       .replace(/免許センター/, "免許ｾﾝﾀｰ");
 
-    if (before_regex.test(remaining_minutes)) {
+    if (soon_regex.test(remaining_minutes)) {
+      remaining_minutes = "まもなく到着";
+    } else if (before_regex.test(remaining_minutes)) {
       continue;
     }
     if (yokogawa_regex.test(via_stop_short)) {
@@ -191,7 +194,9 @@ async function fetchAndDisplayData() {
       .replace(/広島修道大学キャンパス/, "修大ｷ")
       .replace(/免許センター/, "免許ｾﾝﾀｰ");
 
-    if (before_regex.test(remaining_minutes)) {
+    if (soon_regex.test(remaining_minutes)) {
+      remaining_minutes = "まもなく到着";
+    } else if (before_regex.test(remaining_minutes)) {
       continue;
     }
     if (yokogawa_regex.test(via_stop_short)) {
